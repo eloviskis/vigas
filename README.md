@@ -1,11 +1,11 @@
 # VITAS Development Guidelines
 
-Auto-generated from feature plans. Last updated: 2026-01-03
+Auto-generated from feature plans. Last updated: 2026-01-03 (Feature 007 complete)
 
 ## Project Stack
 
-- **Backend**: NestJS (Node.js 20+) + TypeORM + PostgreSQL
-- **Frontend**: React + Vite + Capacitor
+- **Backend**: NestJS 10+ (Node.js 20+) + TypeORM 0.3+ + PostgreSQL 14+
+- **Frontend**: React 18+ + Vite + React Router v6 + Axios
 - **Infrastructure**: Docker, GitHub Actions (CI/CD)
 - **Quality**: ESLint, Prettier, Jest/Vitest
 
@@ -29,11 +29,58 @@ npm install
 npm run typeorm:migrate
 npm run dev
 
-# Frontend
+# Frontend (separate terminal)
 cd ../frontend
 npm install
 npm run dev
 ```
+
+Backend runs on http://localhost:3000/api  
+Frontend runs on http://localhost:5173
+
+## Features Completed
+
+### ✅ Feature 005: Task Generation & Validation (generate-tasks.sh + validate-tasks.sh)
+- Automatic parsing of spec.md to tasks.md
+- Priority-based organization (P1/P2/P3)
+- Validation of consistency between spec↔tasks
+- CI/CD integration (--json, --ci flags)
+
+### ✅ Feature 013: Chamado (Issue) Management & Timeline
+**Endpoints**:
+- `POST /chamados` - Create issue
+- `GET /chamados/:id` - Get issue details
+- `PUT /chamados/:id` - Update issue status
+- `GET /chamados/:id/historico` - Get timeline/history
+- `POST /chamados/:id/historico` - Add custom note
+
+**Entities**: Chamado, ChamadoHistorico with status tracking (ABERTO/TRIADO/AGENDADO/CONCLUIDO/CANCELADO)
+
+### ✅ Feature 006: Triagem (Triage) & Profissional Selection
+**Endpoints**:
+- `POST /profissionais` - Register service provider
+- `GET /profissionais` - List active providers
+- `GET /profissionais/:id/taxa-satisfacao` - Get satisfaction rating
+- `POST /chamados/:id/triagem` - Run automatic triage
+- `GET /chamados/:id/triagem` - Get triage result
+- `PUT /triagem/:id/recomendacao` - Manual profissional recommendation
+
+**Entities**: Profissional (score, status, contextos, categorias), Triagem (AUTOMATICA/MANUAL, resultado, confiança)
+
+### ✅ Feature 007: Agendamento (Scheduling) & Slots
+**Endpoints**:
+- `POST /profissionais/:id/slots` - Create availability slots
+- `GET /profissionais/:id/slots` - List available slots (with date filters)
+- `POST /chamados/:id/agendamentos` - Create appointment
+- `GET /chamados/:id/agendamentos` - Get appointment details
+- `PUT /chamados/:id/agendamentos/:id/confirmar` - Confirm appointment
+- `PUT /chamados/:id/agendamentos/:id/cancelar` - Cancel appointment
+- `PUT /chamados/:id/agendamentos/:id/iniciar` - Start service
+- `PUT /chamados/:id/agendamentos/:id/concluir` - Complete service
+
+**Entities**: Slot (time slots with availability), Agendamento (appointments with status tracking)
+
+---
 
 ## Speckit Commands
 
@@ -41,14 +88,9 @@ Use these commands to manage feature specifications and task generation:
 
 ### Create a New Feature
 ```bash
-./.specify/scripts/bash/create-new-feature.sh "Feature description" [--short-name name] [--number N]
+./.specify/scripts/bash/create-new-feature.sh "Feature description"
 # Creates feature branch and spec.md template
-```
-
-### Generate Implementation Plan
-```bash
-./.specify/scripts/bash/setup-plan.sh
-# Generates plan.md from feature spec
+# Automatically detects feature number from branch name
 ```
 
 ### Generate Tasks from Spec
@@ -57,6 +99,7 @@ Use these commands to manage feature specifications and task generation:
 # Parses spec.md/plan.md and generates tasks.md with structured phases
 # --force: Overwrite existing (backs up previous)
 # --json: Output status as JSON (for CI)
+# SPECIFY_FEATURE env var: Override feature detection
 ```
 
 ### Validate Tasks
@@ -67,37 +110,122 @@ Use these commands to manage feature specifications and task generation:
 # --json: Output results as JSON
 ```
 
-### Check Prerequisites
-```bash
-./.specify/scripts/bash/check-prerequisites.sh [--json] [--require-tasks] [--paths-only]
-# Verifies feature structure and required documents
-# --require-tasks: Enforce tasks.md exists
-# --include-tasks: Include tasks.md in available docs list
-```
+## Feature Structure
 
-### Update Agent Context
-```bash
-./.specify/scripts/bash/update-agent-context.sh [agent_type]
-# Syncs CLAUDE.md/GEMINI.md/etc with current feature status
-# agent_type: claude|gemini|copilot|cursor|qwen|etc (empty for all)
+Each feature follows this organization:
+
+```
+specs/[XXX-feature-name]/
+├── spec.md          # User stories with acceptance criteria (P1/P2/P3)
+├── plan.md          # Implementation plan with phases and risks
+├── tasks.md         # Auto-generated task list (DO NOT EDIT MANUALLY)
+└── research.md      # Optional: Technical research, algorithm docs
+
+backend/src/[module]/
+├── entities/        # TypeORM entities
+├── services/        # Business logic
+├── controllers/     # API endpoints (Swagger decorated)
+├── dtos/            # Request/response schemas
+└── [module].module.ts
 ```
 
 ## Task Organization
 
 Each feature uses consistent task structure:
 
-1. **Phase 1**: Setup (initialize project structure)
-2. **Phase 2**: Foundational (base infrastructure that blocks all stories)
-3. **Phase 3+**: User Stories (P1/MVP → P2 → P3, each independently testable)
-4. **Final**: Polish & cross-cutting concerns
+1. **Phase 1**: Entities & Services (core data models and business logic)
+2. **Phase 2**: Database Integration (migrations, relationships)
+3. **Phase 3**: Service Integration (cross-service dependencies like HistoricoService)
+4. **Phase 4**: Testing & Documentation (end-to-end tests, API docs)
+5. **Phase 5**: Frontend (React components, integration, user experience)
 
-See [spec.md](specs/[FEATURE]/spec.md) for detailed user stories.
+See [spec.md](specs/007-agendamento/spec.md) for detailed user stories.
 
 ## Development Workflow
 
 1. **Create feature**: `create-new-feature.sh "description"`
-2. **Write spec.md** with user stories (P1, P2, P3)
-3. **Write plan.md** with technical context
+2. **Write spec.md** with user stories (P1, P2, P3 with acceptance criteria)
+3. **Write plan.md** with 5-phase technical plan
+4. **Implement** backend entities → services → controllers
+5. **Run generate-tasks.sh** to auto-generate tasks.md
+6. **Test** each phase with curl/Postman
+7. **Validate** with validate-tasks.sh
+8. **Commit** with feature number and task IDs
+
+## Current Architecture
+
+```
+ChamadoModule (Feature 013)
+  ├─ Chamado (issue)
+  ├─ ChamadoHistorico (timeline events)
+  └─ HistoricoService (injected by Triagem & Agendamento)
+
+TriagemModule (Feature 006)
+  ├─ Triagem (recommendation)
+  ├─ ProfissionalModule (injected)
+  └─ HistoricoService (logs triage events)
+
+ProfissionalModule (Feature 006)
+  └─ Profissional (service provider)
+
+AgendamentoModule (Feature 007)
+  ├─ Slot (availability)
+  ├─ Agendamento (appointment)
+  ├─ SlotService
+  ├─ AgendamentoService (logs via HistoricoService)
+  └─ ChamadoModule + ProfissionalModule (injected)
+```
+
+## User Journey (MVP)
+
+1. **Customer creates issue**: `POST /chamados` → Chamado.status = ABERTO
+2. **Automatic triage runs**: `POST /triagem` → recommends Profissional
+3. **Operator schedules**: `POST /agendamentos` with available Slot
+4. **Customer confirms**: `PUT /agendamentos/:id/confirmar` → status = CONFIRMADO
+5. **Service happens**: `PUT /iniciar` → `PUT /concluir` → Chamado.status = CONCLUIDO
+6. **Timeline shows all**: `GET /historico` → Shows TRIAGEM, AGENDAMENTO, STATUS events
+
+## Next Steps
+
+### Phase 2: Database Migrations
+- Create migrations for Profissional, Triagem, Slot, Agendamento tables
+- Run `typeorm migration:generate` to auto-detect schema changes
+- Test relationships and indexes
+
+### Phase 3: Frontend Integration
+- React pages: /chamados, /chamados/new, /chamados/:id, /chamados/:id/triagem, /chamados/:id/agendar
+- Services: chamadoService, triagemService, agendamentoService
+- Components: TriagemForm, SlotSelector, AgendamentoForm, Timeline
+
+### Phase 4: Advanced Features
+- Notifications (SMS/email)
+- Ratings & reviews
+- Analytics dashboard
+- Profissional availability management
+- Map-based search (geolocation)
+
+## Testing
+
+### Run Backend Tests
+```bash
+cd backend
+npm run test              # Unit tests
+npm run test:e2e          # End-to-end tests
+npm run test:cov          # Coverage report
+```
+
+### Manual Testing
+```bash
+# Feature 007 test script
+./.specify/scripts/bash/test-feature-007.sh
+
+# Or use curl directly
+curl -X POST http://localhost:3000/api/profissionais \
+  -H "Content-Type: application/json" \
+  -d '{"nome":"João","email":"joao@ex.com","contextos":["Casa"],"categorias":["Encanamento"]}'
+```
+
+
 4. **Generate tasks**: `generate-tasks.sh`
 5. **Work through phases** in order (Phase 1 → 2 → 3+)
 6. **Validate before PR**: `validate-tasks.sh --ci`
