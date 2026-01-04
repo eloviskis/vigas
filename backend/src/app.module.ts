@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ChamadoModule } from './chamado/chamado.module';
+import { TriagemModule } from './triagem/triagem.module';
+import { ProfissionalModule } from './profissional/profissional.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { ChamadoModule } from './chamado/chamado.module';
       logging: process.env.NODE_ENV !== 'production',
     }),
     ChamadoModule,
+    TriagemModule,
+    ProfissionalModule,
   ],
 })
 export class AppModule {}
