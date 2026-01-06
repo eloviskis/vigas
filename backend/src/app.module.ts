@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { OrcamentoModule } from './orcamento/orcamento.module';
 import { AvaliacaoModule } from './avaliacao/avaliacao.module';
 import { PagamentoModule } from './pagamento/pagamento.module';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { PagamentoModule } from './pagamento/pagamento.module';
       inject: [ConfigService],
     }),
     AuthModule,
+    StorageModule,
     ChamadoModule,
     TriagemModule,
     ProfissionalModule,

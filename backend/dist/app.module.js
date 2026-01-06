@@ -18,6 +18,7 @@ const auth_module_1 = require("./auth/auth.module");
 const orcamento_module_1 = require("./orcamento/orcamento.module");
 const avaliacao_module_1 = require("./avaliacao/avaliacao.module");
 const pagamento_module_1 = require("./pagamento/pagamento.module");
+const storage_module_1 = require("./storage/storage.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -57,6 +58,7 @@ exports.AppModule = AppModule = __decorate([
                 inject: [config_1.ConfigService],
             }),
             auth_module_1.AuthModule,
+            storage_module_1.StorageModule,
             chamado_module_1.ChamadoModule,
             triagem_module_1.TriagemModule,
             profissional_module_1.ProfissionalModule,
