@@ -24,13 +24,13 @@ export class ChamadoHistorico {
   @Column({ name: 'chamado_id' })
   chamadoId: string;
 
-  @Column({ type: 'enum', enum: ChamadoHistoricoTipo })
+  @Column({ type: 'varchar', length: 50 })
   tipo: ChamadoHistoricoTipo;
 
   @Column({ type: 'text', nullable: true })
   descricao?: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   metadata?: Record<string, any>;
 
   @CreateDateColumn({ name: 'criado_em' })

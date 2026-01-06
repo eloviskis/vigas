@@ -8,8 +8,10 @@ import {
   Query,
   HttpCode,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { ProfissionalService } from '../services/profissional.service';
 import {
   CriarProfissionalDto,
@@ -19,6 +21,7 @@ import {
 
 @ApiTags('profissionais')
 @Controller('profissionais')
+@UseGuards(JwtAuthGuard)
 export class ProfissionalController {
   constructor(private readonly profissionalService: ProfissionalService) {}
 
@@ -33,19 +36,33 @@ export class ProfissionalController {
   @Get()
   @ApiOperation({ summary: 'Listar profissionais ativos' })
   @ApiQuery({ name: 'contexto', required: false })
+  @ApiQuery({ name: 'lat', required: false })
+  @ApiQuery({ name: 'lon', required: false })
   @ApiResponse({ status: 200, description: 'Lista de profissionais' })
-  async listar(@Query('contexto') contexto?: string): Promise<ProfissionalResponseDto[]> {
-    return await this.profissionalService.listarAtivos(contexto);
+  async listar(
+    @Query('contexto') contexto?: string,
+    @Query('lat') lat?: string,
+    @Query('lon') lon?: string,
+  ): Promise<ProfissionalResponseDto[]> {
+    const userLat = lat ? parseFloat(lat) : undefined;
+    const userLon = lon ? parseFloat(lon) : undefined;
+    return await this.profissionalService.listarAtivos(contexto, userLat, userLon);
   }
 
   @Get('/contexto/:contexto/categoria/:categoria')
   @ApiOperation({ summary: 'Buscar profissionais por contexto e categoria' })
+  @ApiQuery({ name: 'lat', required: false })
+  @ApiQuery({ name: 'lon', required: false })
   @ApiResponse({ status: 200, description: 'Lista de profissionais encontrados' })
   async buscarPorContextoECategoria(
     @Param('contexto') contexto: string,
     @Param('categoria') categoria: string,
+    @Query('lat') lat?: string,
+    @Query('lon') lon?: string,
   ): Promise<ProfissionalResponseDto[]> {
-    return await this.profissionalService.listarPorContextoECategoria(contexto, categoria);
+    const userLat = lat ? parseFloat(lat) : undefined;
+    const userLon = lon ? parseFloat(lon) : undefined;
+    return await this.profissionalService.listarPorContextoECategoria(contexto, categoria, userLat, userLon);
   }
 
   @Get(':id')

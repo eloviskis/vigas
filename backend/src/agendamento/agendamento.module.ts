@@ -7,9 +7,10 @@ import { AgendamentoService } from './services/agendamento.service';
 import { SlotController } from './controllers/slot.controller';
 import { AgendamentoController } from './controllers/agendamento.controller';
 import { ChamadoModule } from '../chamado/chamado.module';
+import { Chamado } from '../chamado/entities/chamado.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Slot, Agendamento]), ChamadoModule],
+  imports: [TypeOrmModule.forFeature([Slot, Agendamento, Chamado]), ChamadoModule],
   providers: [SlotService, AgendamentoService],
   controllers: [SlotController, AgendamentoController],
   exports: [SlotService, AgendamentoService],

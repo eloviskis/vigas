@@ -6,8 +6,10 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { ChamadoService } from '../services/chamado.service';
 import {
   CriarChamadoDto,
@@ -17,6 +19,7 @@ import {
 
 @ApiTags('Chamados')
 @Controller('chamados')
+@UseGuards(JwtAuthGuard)
 export class ChamadoController {
   constructor(private readonly chamadoService: ChamadoService) {}
 
@@ -26,7 +29,13 @@ export class ChamadoController {
     return this.mapToResponse(chamado);
   }
 
-  @Get(':usuarioId')
+  @Get('all')
+  async listarTodos(): Promise<ChamadoResponseDto[]> {
+    const chamados = await this.chamadoService.listarTodos();
+    return chamados.map((c) => this.mapToResponse(c));
+  }
+
+  @Get('usuario/:usuarioId')
   async listarPorUsuario(
     @Param('usuarioId') usuarioId: string,
   ): Promise<ChamadoResponseDto[]> {

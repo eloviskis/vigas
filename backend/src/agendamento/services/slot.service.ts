@@ -107,7 +107,7 @@ export class SlotService {
   async marcarComoDisponivel(slotId: string): Promise<Slot> {
     const slot = await this.obterPorId(slotId);
     slot.disponivel = true;
-    slot.agendamentoId = null;
+    slot.agendamentoId = undefined;
     return await this.slotRepository.save(slot);
   }
 

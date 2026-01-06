@@ -45,7 +45,7 @@ export class Agendamento {
   @Column({ type: 'integer', default: 60 })
   duracao: number; // minutos
 
-  @Column({ type: 'enum', enum: AgendamentoStatus, default: AgendamentoStatus.PENDENTE })
+  @Column({ type: 'varchar', length: 50, default: AgendamentoStatus.PENDENTE })
   status: AgendamentoStatus;
 
   @Column({ type: 'text', nullable: true })

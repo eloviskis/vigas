@@ -5,7 +5,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  Enum,
 } from 'typeorm';
 import { ChamadoHistorico } from './chamado-historico.entity';
 
@@ -31,13 +30,13 @@ export class Chamado {
   @Column({ type: 'text' })
   descricao: string;
 
-  @Column({ type: 'enum', enum: ChamadoStatus, default: ChamadoStatus.ABERTO })
+  @Column({ type: 'varchar', length: 50, default: ChamadoStatus.ABERTO })
   status: ChamadoStatus;
 
   @Column({ type: 'text', nullable: true })
   observacoes?: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   metadados?: Record<string, any>;
 
   @CreateDateColumn({ name: 'criado_em' })

@@ -7,8 +7,10 @@ import {
   Param,
   HttpCode,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { AgendamentoService } from '../services/agendamento.service';
 import {
   CriarAgendamentoDto,
@@ -19,6 +21,7 @@ import {
 
 @ApiTags('agendamentos')
 @Controller('chamados/:chamadoId/agendamentos')
+@UseGuards(JwtAuthGuard)
 export class AgendamentoController {
   constructor(private readonly agendamentoService: AgendamentoService) {}
 

@@ -28,6 +28,13 @@ export class ChamadoService {
     return resultado;
   }
 
+  async listarTodos(): Promise<Chamado[]> {
+    return this.chamadoRepository.find({
+      order: { criadoEm: 'DESC' },
+      relations: ['historico'],
+    });
+  }
+
   async listarPorUsuario(usuarioId: string): Promise<Chamado[]> {
     return this.chamadoRepository.find({
       where: { usuarioId },

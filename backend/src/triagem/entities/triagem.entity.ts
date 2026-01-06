@@ -30,10 +30,10 @@ export class Triagem {
   @Column({ name: 'chamado_id' })
   chamadoId: string;
 
-  @Column({ type: 'enum', enum: TriagemTipo })
+  @Column({ type: 'varchar', length: 50 })
   tipo: TriagemTipo;
 
-  @Column({ type: 'enum', enum: TriagemResultado })
+  @Column({ type: 'varchar', length: 50 })
   resultado: TriagemResultado;
 
   @Column({ type: 'text', nullable: true })
@@ -42,7 +42,7 @@ export class Triagem {
   @Column({ name: 'profissional_recomendado_id', nullable: true })
   profissionalRecomendadoId?: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   opcoesProfissionais?: {
     id: string;
     nome: string;
@@ -51,7 +51,7 @@ export class Triagem {
     disponibilidade?: boolean;
   }[];
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   critérios?: Record<string, any>;
 
   @Column({ type: 'integer', default: 0 })

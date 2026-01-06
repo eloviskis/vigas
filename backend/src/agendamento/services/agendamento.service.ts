@@ -198,7 +198,7 @@ export class AgendamentoService {
     // Log na timeline
     await this.historicoService.registrarAgendamento(
       agendamento.chamadoId,
-      `Atendimento concluído em ${agendamentoAtualizado.fimAtendimento.toLocaleString()}`,
+      `Atendimento concluído em ${agendamentoAtualizado.fimAtendimento?.toLocaleString() || 'agora'}`,
       {
         agendamento_id: agendamentoId,
         duracao_minutos: agendamento.duracao,

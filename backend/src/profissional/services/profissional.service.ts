@@ -5,6 +5,22 @@ import { Profissional } from '../entities/profissional.entity';
 import { ProfissionalStatus } from '../entities/profissional.entity';
 import { CriarProfissionalDto, AtualizarProfissionalDto } from '../dtos/profissional.dto';
 
+/**
+ * Calcula distância entre dois pontos usando fórmula de Haversine
+ * @returns distância em quilômetros
+ */
+function calcularDistancia(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 6371; // Raio da Terra em km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = 
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
 @Injectable()
 export class ProfissionalService {
   constructor(
@@ -25,28 +41,71 @@ export class ProfissionalService {
     return await this.profissionalRepository.save(profissional);
   }
 
-  async listarAtivos(contexto?: string): Promise<Profissional[]> {
+  async listarAtivos(contexto?: string, userLat?: number, userLon?: number): Promise<Profissional[]> {
     const query = this.profissionalRepository.createQueryBuilder('p')
       .where('p.status = :status', { status: ProfissionalStatus.ATIVO });
 
     if (contexto) {
-      query.andWhere(':contexto = ANY(p.contextos)', { contexto });
+      query.andWhere('p.contextos LIKE :contexto', { contexto: `%${contexto}%` });
     }
 
-    return query.orderBy('p.score', 'DESC').getMany();
+    const profissionais = await query.getMany();
+
+    // Se localização fornecida, ordenar por distância
+    if (userLat && userLon) {
+      return profissionais
+        .map(prof => ({
+          ...prof,
+          distancia: prof.latitude && prof.longitude 
+            ? calcularDistancia(userLat, userLon, prof.latitude, prof.longitude)
+            : 9999
+        }))
+        .sort((a, b) => {
+          // Ordenar por distância primeiro, depois por score
+          if (a.distancia !== b.distancia) {
+            return a.distancia - b.distancia;
+          }
+          return Number(b.score) - Number(a.score);
+        });
+    }
+
+    // Ordenar apenas por score se não houver localização
+    return profissionais.sort((a, b) => Number(b.score) - Number(a.score));
   }
 
   async listarPorContextoECategoria(
     contexto: string,
     categoria: string,
+    userLat?: number,
+    userLon?: number,
   ): Promise<Profissional[]> {
-    return this.profissionalRepository
+    const profissionais = await this.profissionalRepository
       .createQueryBuilder('p')
-      .where(':contexto = ANY(p.contextos)', { contexto })
-      .andWhere(':categoria = ANY(p.categorias)', { categoria })
+      .where('p.contextos LIKE :contexto', { contexto: `%${contexto}%` })
+      .andWhere('p.categorias LIKE :categoria', { categoria: `%${categoria}%` })
       .andWhere('p.status = :status', { status: ProfissionalStatus.ATIVO })
-      .orderBy('p.score', 'DESC')
       .getMany();
+
+    // Se localização fornecida, ordenar por distância
+    if (userLat && userLon) {
+      return profissionais
+        .map(prof => ({
+          ...prof,
+          distancia: prof.latitude && prof.longitude 
+            ? calcularDistancia(userLat, userLon, prof.latitude, prof.longitude)
+            : 9999
+        }))
+        .sort((a, b) => {
+          // Ordenar por distância primeiro, depois por score
+          if (a.distancia !== b.distancia) {
+            return a.distancia - b.distancia;
+          }
+          return Number(b.score) - Number(a.score);
+        });
+    }
+
+    // Ordenar apenas por score se não houver localização
+    return profissionais.sort((a, b) => Number(b.score) - Number(a.score));
   }
 
   async obterPorId(id: string): Promise<Profissional> {

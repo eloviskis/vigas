@@ -42,6 +42,31 @@ export class CriarProfissionalDto {
   @IsNotEmpty()
   @IsArray()
   categorias: string[];
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  cep?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  cidade?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  estado?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNumber()
+  latitude?: number;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNumber()
+  longitude?: number;
 }
 
 export class AtualizarProfissionalDto {

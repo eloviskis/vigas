@@ -7,13 +7,16 @@ import {
   Put,
   HttpCode,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { TriagemService } from '../services/triagem.service';
 import { CriarTriagemDto, RecomendarProfissionalDto, TriagemResponseDto } from '../dtos/triagem.dto';
 
 @ApiTags('triagem')
 @Controller('chamados/:chamadoId/triagem')
+@UseGuards(JwtAuthGuard)
 export class TriagemController {
   constructor(private readonly triagemService: TriagemService) {}
 
