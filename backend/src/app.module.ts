@@ -10,6 +10,7 @@ import { OrcamentoModule } from './orcamento/orcamento.module';
 import { AvaliacaoModule } from './avaliacao/avaliacao.module';
 import { PagamentoModule } from './pagamento/pagamento.module';
 import { StorageModule } from './storage/storage.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { StorageModule } from './storage/storage.module';
     }),
     AuthModule,
     StorageModule,
+    NotificationModule,
     ChamadoModule,
     TriagemModule,
     ProfissionalModule,
