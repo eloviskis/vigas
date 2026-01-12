@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { OrcamentoModule } from './orcamento/orcamento.module';
 import { AvaliacaoModule } from './avaliacao/avaliacao.module';
 import { PagamentoModule } from './pagamento/pagamento.module';
+import { FollowupModule } from './followup/followup.module';
 import { StorageModule } from './storage/storage.module';
 import { NotificationModule } from './notification/notification.module';
 
@@ -58,6 +59,7 @@ import { NotificationModule } from './notification/notification.module';
     OrcamentoModule,
     AvaliacaoModule,
     PagamentoModule,
+    FollowupModule,
   ],
 })
 export class AppModule {}

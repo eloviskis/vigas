@@ -74,7 +74,7 @@ export class Profissional {
   @Column({ nullable: true })
   verificadoPor?: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   dataVerificacao?: Date;
 
   @CreateDateColumn({ name: 'criado_em' })
