@@ -16,7 +16,7 @@ export class StorageService {
   constructor(private configService: ConfigService) {
     this.useS3 = this.configService.get('STORAGE_TYPE') === 's3';
     this.bucketName = this.configService.get('S3_BUCKET_NAME') || '';
-    this.localStoragePath = this.configService.get('LOCAL_STORAGE_PATH') || './uploads';
+    this.localStoragePath = this.configService.get('STORAGE_LOCAL_PATH') || './uploads';
 
     if (this.useS3) {
       this.s3Client = new S3Client({

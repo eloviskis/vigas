@@ -2,9 +2,9 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../auth/entities/user.entity';
-import { Chamado } from '../chamado/chamado.entity';
-import { Pagamento } from '../pagamento/pagamento.entity';
-import { Avaliacao } from '../avaliacao/avaliacao.entity';
+import { Chamado } from '../chamado/entities/chamado.entity';
+import { Pagamento } from '../pagamento/entities/pagamento.entity';
+import { Avaliacao } from '../avaliacao/entities/avaliacao.entity';
 
 export interface UserDataExport {
   usuario: Partial<User>;

@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Agendamento } from '../../agendamento/entities/agendamento.entity';
-import { Usuario } from '../../auth/entities/usuario.entity';
+import { User } from '../../auth/entities/user.entity';
 
 export enum FollowupTipo {
   CONFIRMACAO = 'CONFIRMACAO',
@@ -28,8 +28,8 @@ export class Followup {
   @JoinColumn({ name: 'agendamentoId' })
   agendamento: Agendamento;
 
-  @ManyToOne(() => Usuario, { nullable: true })
-  usuario: Usuario;
+  @ManyToOne(() => User, { nullable: true })
+  usuario: User;
 
   @Column({ type: 'varchar' })
   tipo: FollowupTipo;

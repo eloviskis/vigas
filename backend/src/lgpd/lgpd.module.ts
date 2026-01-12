@@ -3,9 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { LgpdController } from './lgpd.controller';
 import { LgpdService } from './lgpd.service';
 import { User } from '../auth/entities/user.entity';
-import { Chamado } from '../chamado/chamado.entity';
-import { Pagamento } from '../pagamento/pagamento.entity';
-import { Avaliacao } from '../avaliacao/avaliacao.entity';
+import { Chamado } from '../chamado/entities/chamado.entity';
+import { Pagamento } from '../pagamento/entities/pagamento.entity';
+import { Avaliacao } from '../avaliacao/entities/avaliacao.entity';
 
 @Module({
   imports: [

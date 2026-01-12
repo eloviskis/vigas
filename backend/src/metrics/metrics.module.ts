@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MetricsController } from './metrics.controller';
 import { MetricsService } from './metrics.service';
-import { Chamado } from '../chamado/chamado.entity';
-import { Orcamento } from '../orcamento/orcamento.entity';
-import { Pagamento } from '../pagamento/pagamento.entity';
+import { Chamado } from '../chamado/entities/chamado.entity';
+import { Orcamento } from '../orcamento/entities/orcamento.entity';
+import { Pagamento } from '../pagamento/entities/pagamento.entity';
 
 @Module({
   imports: [

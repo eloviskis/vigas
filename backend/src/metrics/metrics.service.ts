@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Chamado } from '../chamado/chamado.entity';
-import { Orcamento } from '../orcamento/orcamento.entity';
-import { Pagamento } from '../pagamento/pagamento.entity';
+import { Chamado } from '../chamado/entities/chamado.entity';
+import { Orcamento } from '../orcamento/entities/orcamento.entity';
+import { Pagamento } from '../pagamento/entities/pagamento.entity';
 
 export interface DashboardMetrics {
   chamadosAbertos: number;
