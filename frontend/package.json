@@ -1,0 +1,51 @@
+{
+  "name": "vitas-frontend",
+  "version": "0.0.1",
+  "description": "VITAS frontend - super app for practical life management",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext ts,tsx",
+    "format": "prettier --write src",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/cli": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "@hookform/resolvers": "5.2.2",
+    "axios": "1.13.2",
+    "lucide-react": "^0.562.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-hook-form": "7.70.0",
+    "react-router-dom": "6.30.2",
+    "zod": "4.3.5",
+    "zustand": "5.0.9"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@shadcn/ui": "^0.0.4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
+    "@types/react": "^18.3.27",
+    "@types/react-dom": "^18.3.7",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "sharp": "^0.34.5",
+    "typescript": "^5.9.3",
+    "vite": "^5.4.21",
+    "vite-plugin-pwa": "^1.2.0",
+    "vitest": "^1.6.1",
+    "workbox-window": "^7.4.0"
+  },
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

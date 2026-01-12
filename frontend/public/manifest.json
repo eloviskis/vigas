@@ -1,0 +1,51 @@
+{
+  "name": "VITAS - Encontre o Profissional Certo",
+  "short_name": "VITAS",
+  "description": "Conecte-se com profissionais qualificados em 1 clique. Triagem automática, agendamento inteligente.",
+  "theme_color": "#2563eb",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "id": "com.vitas.app",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "categories": ["productivity", "utilities", "business"],
+  "shortcuts": [
+    {
+      "name": "Criar Chamado",
+      "short_name": "Novo",
+      "description": "Criar um novo chamado rapidamente",
+      "url": "/chamados/new",
+      "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Meus Chamados",
+      "short_name": "Chamados",
+      "description": "Ver lista de chamados",
+      "url": "/chamados",
+      "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
+    }
+  ]
+}

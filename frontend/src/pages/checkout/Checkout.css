@@ -1,0 +1,377 @@
+.checkout-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.checkout-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.checkout-header h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.checkout-header p {
+  color: #666;
+}
+
+.checkout-resumo {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.checkout-resumo h2 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.resumo-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.resumo-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #2563eb;
+  margin-top: 10px;
+}
+
+.pagamento-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.pagamento-status-pendente {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.pagamento-status-aprovado {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.pagamento-status-recusado {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-icon {
+  flex-shrink: 0;
+}
+
+.rotating {
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.metodos-pagamento {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.metodos-pagamento h2 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.metodos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.metodo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 25px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.metodo-card:hover:not(:disabled) {
+  border-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+}
+
+.metodo-card.selected {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+.metodo-card:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.metodo-card svg {
+  color: #2563eb;
+}
+
+.metodo-card span {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.metodo-card small {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.btn-pagar {
+  width: 100%;
+  padding: 15px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-pagar:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.btn-pagar:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.pix-container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.pix-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.5rem;
+}
+
+.pix-qrcode {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.qrcode-image {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 15px;
+  background: white;
+}
+
+.pix-codigo {
+  margin-bottom: 25px;
+}
+
+.pix-codigo p {
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.codigo-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 15px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.codigo-container code {
+  flex: 1;
+  font-family: monospace;
+  font-size: 0.9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-copiar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 15px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.btn-copiar:hover {
+  background: #1d4ed8;
+}
+
+.pix-instrucoes {
+  background: #eff6ff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.pix-instrucoes h3 {
+  margin-bottom: 15px;
+  color: #1e40af;
+}
+
+.pix-instrucoes ol {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.pix-instrucoes li {
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+.pix-expiracao {
+  text-align: center;
+  font-weight: 500;
+  color: #dc2626;
+  margin: 0;
+}
+
+.btn-simular {
+  width: 100%;
+  padding: 12px;
+  background: #f59e0b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-simular:hover:not(:disabled) {
+  background: #d97706;
+}
+
+.btn-simular:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.cartao-container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.cartao-container h2 {
+  margin-bottom: 15px;
+}
+
+.cartao-container a {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.checkout-seguranca {
+  text-align: center;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.checkout-seguranca p {
+  margin: 0 0 5px 0;
+  font-weight: 600;
+  color: #059669;
+}
+
+.checkout-seguranca small {
+  color: #6b7280;
+}
+
+.error-message {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  color: #6b7280;
+}
+
+@media (max-width: 768px) {
+  .checkout-container {
+    padding: 15px;
+  }
+
+  .checkout-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .metodos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .qrcode-image {
+    max-width: 250px;
+  }
+}

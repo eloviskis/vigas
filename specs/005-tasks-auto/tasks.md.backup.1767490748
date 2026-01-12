@@ -1,0 +1,87 @@
+---
+
+description: "Tarefas para a feature 005 - Automação da geração do tasks.md"
+---
+
+# Tasks: Automação da Geração do tasks.md
+
+**Input**: docs em `/specs/005-tasks-auto/`
+**Prerequisites**: `plan.md` e `spec.md` existentes
+**Tests**: validar comandos de geração e checagem via script
+**Organization**: tarefas agrupadas por história para manter entregas independentes
+
+## Format: `[ID] [P?] [Story] Description`
+
+---
+
+## Phase 1: Setup (Shared Infrastructure)
+
+**Purpose**: habilitar scripts Speckit no repositório
+
+- [ ] T001 Garantir permissão de execução para `.specify/scripts/bash/*.sh`
+- [ ] T002 Adicionar seção rápida no README explicando como rodar `./.specify/scripts/bash/check-prerequisites.sh` e o fluxo Speckit
+
+---
+
+## Phase 2: Foundational (Blocking Prerequisites)
+
+**Purpose**: base para gerar/atualizar/validar tasks
+
+- [ ] T010 Criar script `.specify/scripts/bash/generate-tasks.sh` que lê `spec.md`/`plan.md` e produz `tasks.md` usando template
+- [ ] T011 Adicionar utilidade em `.specify/scripts/bash/common.sh` (ou arquivo novo) para extrair histórias priorizadas de `spec.md`
+- [ ] T012 Definir formato de IDs e mapeamento Story → prefixo (ex: US1 → P1 histórias)
+- [ ] T013 Validar saída do gerador em repositório limpo (sem sobrescrever manual edits)
+
+**Checkpoint**: gerador funcional em modo local
+
+---
+
+## Phase 3: User Story 1 - Gerar tasks.md Automaticamente (Priority: P1) 🎯
+
+**Goal**: comando único gera `tasks.md` a partir de `spec.md`/`plan.md`
+**Independent Test**: rodar gerador e comparar com template esperado
+
+### Implementation
+- [ ] T020 [P] [US1] Implementar parser de histórias (título, prioridade) e metas do `spec.md` em Bash/Python
+- [ ] T021 [US1] Popular template de tarefas por história com blocos "Goal" e "Independent Test"
+- [ ] T022 [US1] Garantir paths alinhados à estrutura atual (`backend/`, `frontend/` se existirem; caso contrário `src/`)
+
+---
+
+## Phase 4: User Story 2 - Atualizar tasks.md com Novas Features (Priority: P2)
+
+**Goal**: reexecutar comando atualiza/mescla tarefas sem apagar personalizações
+**Independent Test**: rodar gerador duas vezes com `spec.md` alterado e preservar ajustes manuais
+
+### Implementation
+- [ ] T030 [US2] Implementar modo de atualização incremental (merge por IDs e Story)
+- [ ] T031 [US2] Adicionar flag "--force" para recriar do zero preservando backup
+- [ ] T032 [US2] Documentar fluxo de update no README
+
+---
+
+## Phase 5: User Story 3 - Validação Automática das Tarefas (Priority: P2)
+
+**Goal**: validar que `tasks.md` está presente e consistente com `spec.md`
+**Independent Test**: pipeline falha se `tasks.md` estiver ausente ou desatualizado
+
+### Implementation
+- [ ] T040 [US3] Criar verificador `.specify/scripts/bash/validate-tasks.sh` (com modo `--ci`)
+- [ ] T041 [US3] Integrar verificador em CI (GitHub Actions placeholder) e em `check-prerequisites` com `--require-tasks`
+- [ ] T042 [US3] Emitir resumo JSON com divergências por história
+
+---
+
+## Phase N: Polish & Cross-Cutting
+
+- [ ] T050 Atualizar `.specify/templates/tasks-template.md` conforme lições do gerador
+- [ ] T051 Registrar exemplos de entrada/saída em `specs/005-tasks-auto/quickstart.md`
+- [ ] T052 Revisar documentação de agente em `CLAUDE.md`/`AGENTS.md` com novo comando
+
+---
+
+## Dependencies & Execution Order
+
+- Fases 1 e 2 antes das histórias.
+- US1 desbloqueia US2 e US3.
+- Validação de CI depende do gerador pronto.

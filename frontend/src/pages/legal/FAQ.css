@@ -1,0 +1,256 @@
+.faq-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-bottom: 60px;
+}
+
+.faq-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.faq-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #1e293b;
+}
+
+.faq-header p {
+  font-size: 1.1rem;
+  color: #64748b;
+}
+
+.faq-search-hint {
+  background: #eff6ff;
+  border-left: 4px solid #2563eb;
+  padding: 15px 20px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  color: #1e40af;
+}
+
+.faq-content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.faq-category {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.faq-category-title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #1e293b;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.faq-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.faq-item:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  background: #f8fafc;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.faq-question:hover {
+  background: #f1f5f9;
+}
+
+.faq-question[aria-expanded="true"] {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.faq-question svg {
+  flex-shrink: 0;
+  color: #64748b;
+  transition: transform 0.2s;
+}
+
+.faq-question[aria-expanded="true"] svg {
+  color: #0369a1;
+}
+
+.faq-answer {
+  padding: 20px;
+  background: white;
+  border-top: 1px solid #e2e8f0;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.faq-answer p {
+  margin: 0;
+  line-height: 1.7;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.faq-footer {
+  margin-top: 60px;
+}
+
+.faq-contact {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.faq-contact h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.faq-contact p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  opacity: 0.95;
+}
+
+.faq-contact-methods {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.faq-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: white;
+  color: #667eea;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.faq-contact-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  background: #f8fafc;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .faq-container {
+    padding: 15px;
+  }
+
+  .faq-header h1 {
+    font-size: 2rem;
+  }
+
+  .faq-header p {
+    font-size: 1rem;
+  }
+
+  .faq-category {
+    padding: 20px;
+  }
+
+  .faq-category-title {
+    font-size: 1.3rem;
+  }
+
+  .faq-question {
+    padding: 15px;
+    font-size: 0.95rem;
+  }
+
+  .faq-answer {
+    padding: 15px;
+  }
+
+  .faq-contact {
+    padding: 30px 20px;
+  }
+
+  .faq-contact h3 {
+    font-size: 1.5rem;
+  }
+
+  .faq-contact-methods {
+    flex-direction: column;
+  }
+
+  .faq-contact-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Acessibilidade */
+.faq-question:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Print */
+@media print {
+  .faq-question {
+    background: white !important;
+  }
+
+  .faq-question svg {
+    display: none;
+  }
+
+  .faq-answer {
+    display: block !important;
+    border: none;
+  }
+
+  .faq-contact,
+  .faq-search-hint {
+    display: none;
+  }
+}
