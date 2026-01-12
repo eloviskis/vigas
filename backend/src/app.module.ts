@@ -54,16 +54,16 @@ import { NotificationModule } from './notification/notification.module';
     AuthModule,
     StorageModule,
     NotificationModule,
-    ChamadoModule,
-    // TriagemModule, // Temporariamente desabilitado
     ProfissionalModule,
     AgendamentoModule,
-    OrcamentoModule,
-    AvaliacaoModule,
-    PagamentoModule,
-    // FollowupModule, // Temporariamente desabilitado
-    // LgpdModule, // Temporariamente desabilitado
-    // MetricsModule, // Temporariamente desabilitado
+    // ChamadoModule,
+    // TriagemModule,
+    // OrcamentoModule,
+    // AvaliacaoModule,
+    // PagamentoModule,
+    // FollowupModule,
+    // LgpdModule,
+    // MetricsModule,
   ],
 })
 export class AppModule {}
