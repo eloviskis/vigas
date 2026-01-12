@@ -55,7 +55,7 @@ import { NotificationModule } from './notification/notification.module';
     StorageModule,
     NotificationModule,
     ChamadoModule,
-    TriagemModule,
+    // TriagemModule, // Temporariamente desabilitado
     ProfissionalModule,
     AgendamentoModule,
     OrcamentoModule,
