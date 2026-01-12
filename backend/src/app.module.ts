@@ -9,9 +9,11 @@ import { AuthModule } from './auth/auth.module';
 import { OrcamentoModule } from './orcamento/orcamento.module';
 import { AvaliacaoModule } from './avaliacao/avaliacao.module';
 import { PagamentoModule } from './pagamento/pagamento.module';
-import { FollowupModule } from './followup/followup.module';
+// import { FollowupModule } from './followup/followup.module'; // Temporariamente desabilitado
 import { StorageModule } from './storage/storage.module';
 import { NotificationModule } from './notification/notification.module';
+// import { LgpdModule } from './lgpd/lgpd.module'; // Temporariamente desabilitado
+// import { MetricsModule } from './metrics/metrics.module'; // Temporariamente desabilitado
 
 @Module({
   imports: [
@@ -59,7 +61,9 @@ import { NotificationModule } from './notification/notification.module';
     OrcamentoModule,
     AvaliacaoModule,
     PagamentoModule,
-    FollowupModule,
+    // FollowupModule, // Temporariamente desabilitado
+    // LgpdModule, // Temporariamente desabilitado
+    // MetricsModule, // Temporariamente desabilitado
   ],
 })
 export class AppModule {}
