@@ -21,6 +21,9 @@ export class User {
   @Column({ type: 'boolean', default: true })
   ativo: boolean;
 
+  @Column({ type: 'varchar', nullable: true })
+  fcmToken?: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

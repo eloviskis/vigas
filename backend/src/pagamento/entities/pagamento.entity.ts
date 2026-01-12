@@ -49,6 +49,11 @@ export class Pagamento {
   @Column('decimal', { precision: 10, scale: 2 })
   valorTotal: number;
 
+  // Alias para compatibilidade
+  get valor(): number {
+    return this.valorTotal;
+  }
+
   @Column('decimal', { precision: 10, scale: 2 })
   valorProfissional: number; // 88%
 
@@ -109,4 +114,9 @@ export class Pagamento {
 
   @UpdateDateColumn()
   atualizadoEm: Date;
+
+  // Alias para compatibilidade
+  get createdAt(): Date {
+    return this.criadoEm;
+  }
 }

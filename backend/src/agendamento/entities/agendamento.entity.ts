@@ -60,6 +60,9 @@ export class Agendamento {
   @Column({ type: 'text', nullable: true })
   motivoCancelamento?: string;
 
+  @Column({ type: 'varchar', nullable: true })
+  canceladoPor?: string; // 'CLIENTE' | 'PROFISSIONAL' | 'SISTEMA'
+
   @Column({ nullable: true })
   inicioAtendimento?: Date;
 
@@ -71,6 +74,11 @@ export class Agendamento {
 
   @UpdateDateColumn({ name: 'atualizado_em' })
   atualizadoEm: Date;
+
+  // Alias para compatibilidade
+  get dataAgendamento(): Date {
+    return this.dataHora;
+  }
 
   // Relations
   @ManyToOne(() => Chamado, { onDelete: 'CASCADE', eager: false })
